@@ -11,8 +11,7 @@ import openlibrary
 from crossref.restful import Works
 import json
 import os
-from os import listdir
-from os.path import isfile, join
+import re
 
 #Classe para gerar os arquivos json de uma lista com numeros isbn
 class Isbn_file:
@@ -31,9 +30,9 @@ class Isbn_file:
                 data = api.list('isbn:{}'.format(isbn))
                 isbn_dict[isbn] = data
             if not os.path.isdir(path):
-                os.mkdir(path)
-            file_list = [f for f in listdir(path) if isfile(join(path, f))]            
-            with open('{}/Json_list{}.json'.format(path,len(file_list)), 'w') as outfile:
+                os.mkdir(path)          
+            name = re.search(r'.*(?=\.)',self.file_name).group()
+            with open('{}/Json_{}.json'.format(path,name), 'w') as outfile:
                 json.dump(isbn_dict, outfile)
         
         elif(self.library=='openl'):
