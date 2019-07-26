@@ -12,7 +12,7 @@ Para fazer uma busca com os dados do googlebooks, digite:
 
 >python requisicao_dados.py -l gbooks -i 0596007973
 
--l é a bilioteca a ser usada, podendo ser gbooks, openl ou crossref
+-l é a bilioteca a ser usada, podendo ser gbooks, openl ou crossref<br />
 -i é um numero isbn
 O resultado é um arquivo json, que ficará guardado na pasta jsonfiles. Para mostrar esse arquivo digite:
 
