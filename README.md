@@ -53,6 +53,16 @@ A próxima etapa consiste em gerar os arquivos xml ou json. O comando que faz is
 ![Capturar18](https://user-images.githubusercontent.com/39687418/62415735-036bd100-b605-11e9-88d5-54ba41e01689.PNG)
 
 Comandos úteis:
+#####Para inspecionar o nome das colunas
+>python ler_acervo.py -f file_name -t
+#####Para inspecionar o conteudo das colunas
+>python ler_acervo.py -f file_name -col col_name -c
+#####Para gerar a lista com numeros isbn
+>python ler_acervo.py -f file_name -col isbn_col -list
+#####Para gerar o arquivo json com as colunas do arquivo csv ou xlsx
+>python ler_acervo.py -f file_name -col col1,col2,col3,...,coln -to col1,col2,col3,...,coln -json
+#####Para gerar o arquivo json e xml com as colunas do arquivo csv ou xlsx
+>python ler_acervo.py -f file_name -col col1,col2,col3,...,coln -to col1,col2,col3,...,coln -xml
 
 
 
