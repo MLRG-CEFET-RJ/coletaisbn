@@ -51,6 +51,8 @@ Agora que já sabemos qual coluna contém os números ISBN, precisamos gerar a l
 ![Capturar7](https://user-images.githubusercontent.com/39687418/62415616-08c81c00-b603-11e9-887d-ddfd135c2caa.PNG)
 ![Capturar19](https://user-images.githubusercontent.com/39687418/62415831-76c21280-b606-11e9-9a14-f0c0a8bd1266.PNG)
 
+A lista com os números isbn ficará guarda na pasta ISBN_lists, enquanto o novo arquivo csv simplificado ficará guardado na pasta New_csvs
+
 #### Etapa 5:
 A próxima etapa consiste em gerar os arquivos xml ou json. O comando que faz isso possibilita que você escolha quais colunas da planilha deseja adicionar ao arquivo json ou xml. Note que o comando -json irá gerar apenas um arquivo json, enquanto que o comando -xml irá gerar ambos.
 >Entradas:<br />
