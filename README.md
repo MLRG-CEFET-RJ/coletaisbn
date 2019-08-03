@@ -13,7 +13,7 @@ A segunda busca pode ser feita na nuvem, com bibliotecas como googlebooks, openl
 Para fazer uma busca com os dados de universidades, primeiro coloque os arquivos na pasta Acervos:
 >Entrada:<br />
 ![Capturar1](https://user-images.githubusercontent.com/39687418/62415606-f3eb8880-b602-11e9-8a95-6fa2d6dfb344.PNG)
-![Capturar](https://user-images.githubusercontent.com/39687418/62415607-fc43c380-b602-11e9-981f-c2b65ea27dc7.PNG)
+![Capturar](https://user-images.githubusercontent.com/39687418/62415607-fc43c380-b602-11e9-981f-c2b65ea27dc7.PNG)<br />
 >Saida:<br />
 ![Capturar2](https://user-images.githubusercontent.com/39687418/62415608-fea61d80-b602-11e9-80dd-2dca47c4fe55.PNG)
 
@@ -41,7 +41,7 @@ Note que essa etapa é importante, pois só podemos continuar com as próximas e
 ![Capturar16](https://user-images.githubusercontent.com/39687418/62415731-0070e080-b605-11e9-8aee-b63162b1fc35.PNG)
 
 Agora que já sabemos qual coluna contém os números ISBN, precisamos gerar a lista com os números ISBN. Isso é essencial e precisa ser feito para que o restante do código possa funcionar. Essa etapa é necessária porque a chave que iremos usar para criar o arquivo JSON são os números ISBN. Como nem todas as linhas das planilhas do CEFET e da UFF contém um número ISBN, esse comando irá reduzir o arquivo csv ou xlsx para um novo arquivo, que terá todas as linhas sem números ISBN removidas do arquivo principal.
->Entrada:s<br />
+>Entradas:<br />
 ![Capturar7](https://user-images.githubusercontent.com/39687418/62415616-08c81c00-b603-11e9-887d-ddfd135c2caa.PNG)
 ![Capturar19](https://user-images.githubusercontent.com/39687418/62415831-76c21280-b606-11e9-9a14-f0c0a8bd1266.PNG)
 
