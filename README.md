@@ -5,7 +5,7 @@ Nesse desafio iremos tentar buscar dados isbn como autores,titulo,obra,etc... e 
 ## Modo de uso:
 
 A busca pelos dados consiste em duas classes. <br />
-A primeira busca pode ser feita com dados de universidades como CEFET,UFF,etc. Para utilizar essa busca, é necessario que os dados estejam no formato csv ou xlsx. Note que os dados no formato csv possibilitam uma busca visivelmente mais rapida que dados no formato xlsx. O resultado dessa classe irá gerar uma lista com numeros isbn para que a segunda busca também possa ser possível.
+A primeira busca pode ser feita com dados de universidades como CEFET,UFF,etc. Para utilizar essa busca, é necessario que os dados estejam no formato csv ou xlsx. Note que os dados no formato csv possibilitam uma busca visivelmente mais rapida que dados no formato xlsx. O resultado dessa classe irá gerar uma lista com numeros isbn para que a segunda busca também possa ser possível.<br />
 A segunda busca pode ser feita na nuvem, com bibliotecas como googlebooks, openlibrary ou crossref. Note que para utilizar essa busca é necessario uma lista com numeros isbn.
 
 ### Exemplos:
