@@ -52,7 +52,7 @@ A próxima etapa consiste em gerar os arquivos xml ou json. O comando que faz is
 ![Capturar17](https://user-images.githubusercontent.com/39687418/62415733-01a20d80-b605-11e9-9584-0f0eed35fcca.PNG)
 ![Capturar18](https://user-images.githubusercontent.com/39687418/62415735-036bd100-b605-11e9-88d5-54ba41e01689.PNG)
 
-Comandos úteis:<br />
+#### Comandos úteis:<br />
 ##### Para inspecionar o nome das colunas<br />
 >python ler_acervo.py -f file_name -t<br />
 ##### Para inspecionar o conteudo das colunas<br />
