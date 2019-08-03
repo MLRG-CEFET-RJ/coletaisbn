@@ -32,6 +32,8 @@ Podemos prosseguir então, para ver o conteudo desses acervos. Para ver quais s�
 >Saida:<br />
 ![Capturar13](https://user-images.githubusercontent.com/39687418/62415624-17aece80-b603-11e9-9bff-f8ec3a8b2309.PNG)
 
+Aqui podemos ver que o arquivo do cefet contem os seguintes campos: 'TITULO', 'ASSUNTOS', 'AUTORES', 'OBRA','IDIOMA','ANO','DATA_ATUALIZACAO','MATERIAL','CLASSIFICACAO','TIPO_MATERIAL','ISBN_ISSN','AUTOR_PRINCIPAL','EDITORA','EDICAO'. Enquanto o arquivo da uff contem 31 campos.
+
 #### Etapa 3:
 Pronto. Agora que sabemos quais são as colunas dos arquivos, podemos inspecionar o que tem dentro dessas colunas para determinar se queremos ou não por essas colunas no nosso futuro arquivo json ou xml. Para inspecionar o que tem dentro das colunas, você pode escrever:
 >Entrada:<br />
