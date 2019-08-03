@@ -24,7 +24,7 @@ Podemos prosseguir entÃ£o, para ver o conteudo desses acervos. Para ver quais sÃ
 >Saida:<br />
 ![Capturar4](https://user-images.githubusercontent.com/39687418/62415611-02d23b00-b603-11e9-8747-fe25565966b4.PNG)<br />
 >Entrada:<br />
-![Capturar12](https://user-images.githubusercontent.com/39687418/62415623-15e50b00-b603-11e9-8753-8ee79d272f82.PNG)
+![Capturar12](https://user-images.githubusercontent.com/39687418/62415623-15e50b00-b603-11e9-8753-8ee79d272f82.PNG)<br />
 >Saida:<br />
 ![Capturar13](https://user-images.githubusercontent.com/39687418/62415624-17aece80-b603-11e9-9bff-f8ec3a8b2309.PNG)
 
