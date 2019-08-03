@@ -10,6 +10,7 @@ A segunda busca pode ser feita na nuvem, com bibliotecas como googlebooks, openl
 
 ### Exemplos:
 
+#### Etapa 1:
 Para fazer uma busca com os dados de universidades, primeiro coloque os arquivos na pasta Acervos:
 >Entrada:<br />
 ![Capturar1](https://user-images.githubusercontent.com/39687418/62415606-f3eb8880-b602-11e9-8a95-6fa2d6dfb344.PNG)
@@ -17,6 +18,7 @@ Para fazer uma busca com os dados de universidades, primeiro coloque os arquivos
 >Saida:<br />
 ![Capturar2](https://user-images.githubusercontent.com/39687418/62415608-fea61d80-b602-11e9-80dd-2dca47c4fe55.PNG)
 
+#### Etapa 2:
 Aqui podemos ver que temos dois arquivos, acervo-cefetrj.csv e acervo-uff.xlsx<br/>
 Podemos prosseguir então, para ver o conteudo desses acervos. Para ver quais são as colunas dos arquivos, basta escrever:
 >Entrada:<br />
@@ -28,6 +30,7 @@ Podemos prosseguir então, para ver o conteudo desses acervos. Para ver quais s�
 >Saida:<br />
 ![Capturar13](https://user-images.githubusercontent.com/39687418/62415624-17aece80-b603-11e9-9bff-f8ec3a8b2309.PNG)
 
+#### Etapa 3:
 Pronto. Agora que sabemos quais são as colunas dos arquivos, podemos inspecionar o que tem dentro dessas colunas para determinar se queremos ou não por essas colunas no nosso futuro arquivo json ou xml. Para inspecionar o que tem dentro das colunas, você pode escrever:
 >Entrada:<br />
 ![Capturar5](https://user-images.githubusercontent.com/39687418/62415613-05cd2b80-b603-11e9-97fa-31e839be2d2f.PNG)
@@ -40,11 +43,13 @@ Note que essa etapa é importante, pois só podemos continuar com as próximas e
 >Saida:<br />
 ![Capturar16](https://user-images.githubusercontent.com/39687418/62415731-0070e080-b605-11e9-8aee-b63162b1fc35.PNG)
 
+#### Etapa 4:
 Agora que já sabemos qual coluna contém os números ISBN, precisamos gerar a lista com os números ISBN. Isso é essencial e precisa ser feito para que o restante do código possa funcionar. Essa etapa é necessária porque a chave que iremos usar para criar o arquivo JSON são os números ISBN. Como nem todas as linhas das planilhas do CEFET e da UFF contém um número ISBN, esse comando irá reduzir o arquivo csv ou xlsx para um novo arquivo, que terá todas as linhas sem números ISBN removidas do arquivo principal.
 >Entradas:<br />
 ![Capturar7](https://user-images.githubusercontent.com/39687418/62415616-08c81c00-b603-11e9-887d-ddfd135c2caa.PNG)
 ![Capturar19](https://user-images.githubusercontent.com/39687418/62415831-76c21280-b606-11e9-9a14-f0c0a8bd1266.PNG)
 
+#### Etapa 5:
 A próxima etapa consiste em gerar os arquivos xml ou json. O comando que faz isso possibilita que você escolha quais colunas da planilha deseja adicionar ao arquivo json ou xml. Note que o comando -json irá gerar apenas um arquivo json, enquanto que o comando -xml irá gerar ambos.
 >Entradas:<br />
 ![Capturar8](https://user-images.githubusercontent.com/39687418/62415617-0c5ba300-b603-11e9-9d80-d0ab11c7c743.PNG)
@@ -53,15 +58,15 @@ A próxima etapa consiste em gerar os arquivos xml ou json. O comando que faz is
 ![Capturar18](https://user-images.githubusercontent.com/39687418/62415735-036bd100-b605-11e9-88d5-54ba41e01689.PNG)
 
 #### Comandos úteis:<br />
-##### Para inspecionar o nome das colunas<br />
+##### Para inspecionar o nome das colunas:<br />
 >python ler_acervo.py -f file_name -t<br />
-##### Para inspecionar o conteudo das colunas<br />
+##### Para inspecionar o conteúdo das colunas:<br />
 >python ler_acervo.py -f file_name -col col_name -c<br />
-##### Para gerar a lista com numeros isbn<br />
+##### Para gerar a lista com números ISBN:<br />
 >python ler_acervo.py -f file_name -col isbn_col -list<br />
-##### Para gerar o arquivo json com as colunas do arquivo csv ou xlsx<br />
+##### Para gerar o arquivo json com as colunas do arquivo csv ou xlsx:<br />
 >python ler_acervo.py -f file_name -col col1,col2,col3,...,coln -to col1,col2,col3,...,coln -json<br />
-##### Para gerar o arquivo json e xml com as colunas do arquivo csv ou xlsx<br />
+##### Para gerar o arquivo json e xml com as colunas do arquivo csv ou xlsx:<br />
 >python ler_acervo.py -f file_name -col col1,col2,col3,...,coln -to col1,col2,col3,...,coln -xml
 
 
