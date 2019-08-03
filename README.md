@@ -18,8 +18,10 @@ Para fazer uma busca com os dados de universidades, primeiro coloque os arquivos
 >Saida:<br />
 ![Capturar2](https://user-images.githubusercontent.com/39687418/62415608-fea61d80-b602-11e9-80dd-2dca47c4fe55.PNG)
 
-#### Etapa 2:
 Aqui podemos ver que temos dois arquivos, acervo-cefetrj.csv e acervo-uff.xlsx<br/>
+
+#### Etapa 2:
+
 Podemos prosseguir então, para ver o conteudo desses acervos. Para ver quais são as colunas dos arquivos, basta escrever:
 >Entrada:<br />
 ![Capturar3](https://user-images.githubusercontent.com/39687418/62415609-006fe100-b603-11e9-8253-90a7ea299b69.PNG)
