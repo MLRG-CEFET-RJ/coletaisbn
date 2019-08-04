@@ -78,6 +78,16 @@ xmlfiles com o nome dadosuniversidades.xml
 ##### Para gerar o arquivo json e xml com as colunas do arquivo csv ou xlsx:<br />
 >python ler_acervo.py -f file_name -col col1,col2,col3,...,coln -to col1,col2,col3,...,coln -xml
 
+### Exemplos na nuvem:
+
+Para buscar dados de plataformas como googlebooks, crossref e openlibrary, é necessário ter uma lista com números ISBN.
+#### Googlebooks:
+>python requisicao_dados.py -f isbns.txt -l gbooks
+#### Openlibrary:
+>python requisicao_dados.py -f isbns.txt -l openl
+#### Crossref:
+>python requisicao_dados.py -f isbns.txt -l crossref
+
 
 
 
