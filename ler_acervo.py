@@ -64,7 +64,7 @@ class Acervo():
             list_ = pd.DataFrame(list_)
             list_.to_csv('{}/{}_isbn.csv'.format(path_list,self.file),index=None)
         
-        print("lista com numeros isbn gerada.")
+        print("Lista com numeros isbn gerada.")
             
 class Constructor():   
     def __init__(self,df,isbn_list,isbn_title,new_title,xml):
@@ -109,7 +109,7 @@ class Constructor():
             
         with open('{}/dadosuniversidades.json'.format(path), 'w') as outfile:
                 json.dump(my_dict, outfile)
-                print("arquivo json gerado com sucesso.")
+                print("Arquivo json gerado com sucesso.")
         
         xml=json2xml.Json2xml(my_dict).to_xml()
         
@@ -122,7 +122,7 @@ class Constructor():
             myfile = open("{}/dadosuniversidades.xml".format(path), "w")
             myfile.write(xml)
         
-            print("xml e json salvos nas pastas xmlfiles e jsonfiles, respectivamente, com o nome de dadosuniversidades.")
+            print("Xml e json salvos nas pastas xmlfiles e jsonfiles, respectivamente, com o nome de dadosuniversidades.")
         
         
 def main():
