@@ -239,5 +239,3 @@ elif(args.f is None):
 elif(args.i is None):
     json_output = Isbn_list(args.f,args.l)
     json_output.generate_json()
-
-
