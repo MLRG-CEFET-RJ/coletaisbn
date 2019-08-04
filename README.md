@@ -1,4 +1,4 @@
-# desafio-capes-livros
+# BibliCAPES
 
 Nesse desafio iremos tentar buscar dados isbn como autores,titulo,obra,etc... e formatar tudo em um arquivo json ou xml.
 
