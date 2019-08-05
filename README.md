@@ -2,8 +2,6 @@
 
 O ColetaISBN é um conjunto de scrips em Python que permite importar dados bibliográficos a partir de alguns Web services disponíveis publicamente, assim como permite importar acervos bibliográficos provenientes de bibliotecas públicas ou particulares. Em conjunto, essas duas funcionalidades permitem construir uma base unificada de livros. Além disso, o ColetaISBN também fornece uma funcionalidade para desambiguação de nomes de entidades.
 
-Nesse desafio iremos tentar buscar dados isbn como autores,titulo,obra,etc... e formatar tudo em um arquivo json ou xml.
-
 ## Dependências:
 
 >pip install disamby<br />
