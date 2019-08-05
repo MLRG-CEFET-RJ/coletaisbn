@@ -1,0 +1,6 @@
+pandas>=0.18.1
+isbnlib==3.9.8
+disamby>=0.2.4
+argparse
+crossrefapi
+json2xml
