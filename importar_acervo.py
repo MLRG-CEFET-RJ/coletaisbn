@@ -164,7 +164,7 @@ def main():
 
     args = parser.parse_args()
 
-    input_file = 'acervos/' + args.i
+    input_file = './data/' + args.i
 
     if args.v:
         # imprime o esquema (nomes das colunas) do arquivo de acervo
