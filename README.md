@@ -11,9 +11,9 @@ O ColetaISBN é um conjunto de scrips em Python que permite importar dados bibli
 >pip install json2xml<br />
 >pip install isbnlib<br />
 
-### Funcionalidades
+## Funcionalidades
 
-#### Importação de Acervos Bibliotecários
+### Importação de Acervos Bibliotecários
 
 Essa funcionalidade permite que o acervo bibliográfico de uma biblioteca seja adicionado (i.e., importado) ao repositório unificado do ColetaISBN. Nossa ideia nessa funcionalidade foi permitir que o ColetaISBN pudesse aproveitar os acervos bibliográficos já existentes em diferentes instituições de ensino e pesquisa de nosso país para alimentar gradativamente o a base unificada de livros do sistema. Dessa forma, se alguma biblioteca (pública ou particular) disponibiliza total ou parcialmente seu acervo de livros, é possível por meio desta funcionalidade, importar este acervo para a base unificada do ColetaISBN.
 
@@ -54,7 +54,7 @@ Uma aspecto importante desta funcionalidades diz respeito à validação e norma
 
 Outro aspecto importante dessa funcionalidade é que ela contempla a integração de esquemas. Por exemplo, no acervo do CEFET/RJ, não há a informação de quantidade de páginas de cada livro, mas no acervo da UFF essa informação existem. Em nossa solução, quando importamos um novo acervo é existe livro na base unificada que podem ter sua informação completada, o script realiza essa tarefa.
 
-#### Detecção de nomes de autores e de editoras semelhantes
+### Detecção de nomes de autores e de editoras semelhantes
 
 A ideia que implementamos nesta funcionalidade foi a seguinte. Muitas vezes, uma mesma obra é cadastrada de formas diferente. Por exemplo, um autor cujo nome José Silva pode ser sido cadastrado como "José Silva", "Silva, José" e "J. Silva". Essa funcionalidade permite detectar duas ou mais entradas na base unificada que provavelmente correspondem à mesma entidade. Essa funcionalidade pode ser aplicada a diversos campos, como por exemplo, nomes autores e nomes de editoras. 
 
@@ -68,7 +68,7 @@ Implementamos essa funcionalidade por meio do uso da biblioteca Python denominad
 
 Entendemos que essa funcionalidade é útil para eventuais curadorias na base unificada: se duas ou mais entradas fazem referência a uma mesma entidade por meio de nomes distintos, essas entradas poderiam ser modificadas para armazenar um nome canônico para a entidade em questão. Essa funcionalidade também é útil para o contexto específico da Plataforma Sucupira, visto que nela é preciso atrelar os autores a um determinado livro.
 
-#### Obtenção de entradas a partir de APIs online
+### Obtenção de entradas a partir de APIs online
 
 A terceira funcionalidade que implementamos no ColetaISBN foi a que possibilita a recuperação de informação dos metadados e dados acerca de um livro a partir de alguma API online (Web service). Para isso, mais uma vez, utilizamos a biblioteca Python isbnlib. Implementamos essa funcionalidade no script de nome recupera_livro.py. Um exemplo de uso deste script é fornecido abaixo. Nesse script, a opção -s permite ao usuário especificar a API online a ser consultada. 
 
