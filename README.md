@@ -1,4 +1,4 @@
-# BibliCAPES
+# ColetaISBN
 
 Nesse desafio iremos tentar buscar dados isbn como autores,titulo,obra,etc... e formatar tudo em um arquivo json ou xml.
 
@@ -10,98 +10,82 @@ Nesse desafio iremos tentar buscar dados isbn como autores,titulo,obra,etc... e 
 >pip install crossrefapi<br />
 >pip install json2xml<br />
 
+#### Funcionalidades
 
-## Modo de uso:
+#### Importação de Acervos Bibliotecários
 
-A busca pelos dados consiste em duas classes. <br />
-A primeira busca pode ser feita com dados de universidades como CEFET,UFF,etc. Para utilizar essa busca, é necessario que os dados estejam no formato csv ou xlsx. Note que os dados no formato csv possibilitam uma busca visivelmente mais rapida que dados no formato xlsx. O resultado dessa classe irá gerar uma lista com numeros isbn para que a segunda busca também possa ser possível.<br />
-A segunda busca pode ser feita na nuvem, com bibliotecas como googlebooks, openlibrary ou crossref. Note que para utilizar essa busca é necessario uma lista com numeros isbn.
+Essa funcionalidade permite que o acervo bibliográfico de uma biblioteca seja adicionado (i.e., importado) ao repositório unificado do ColetaISBN. Nossa ideia nessa funcionalidade foi permitir que o ColetaISBN pudesse aproveitar os acervos bibliográficos já existentes em diferentes instituições de ensino e pesquisa de nosso país para alimentar gradativamente o a base unificada de livros do sistema. Dessa forma, se alguma biblioteca (pública ou particular) disponibiliza total ou parcialmente seu acervo de livros, é possível por meio desta funcionalidade, importar este acervo para a base unificada do ColetaISBN.
 
-### Exemplos:
+Para realizar os testes desta funcionalidade, durante a execução deste projeto, conseguimos dois acervos, provenientes do das bibliotecas do CEFET/RJ (\url{http://www.cefet-rj.br/index.php/bibliotecas}) e da UFF (\url{http://www.bibliotecas.uff.br}). 
 
-#### Etapa 1:
-Para fazer uma busca com os dados de universidades, primeiro coloque os arquivos na pasta Acervos:
->Entrada:<br />
->cd acervos<br />
->dir<br />
->Saida:<br />
-![Capturar2](https://user-images.githubusercontent.com/39687418/62415608-fea61d80-b602-11e9-80dd-2dca47c4fe55.PNG)
+Esses acervos estão em dois arquivos, disponíveis na pasta \textt{data}. Seus nomes são  \emph{acervo-cefetrj.csv} e \emph{acervo-uff.xlsx}.
 
-Aqui podemos ver que temos dois arquivos, acervo-cefetrj.csv e acervo-uff.xlsx<br/>
+Para executar a funcionalidade de importação de um acervo bibliográfico, o ColetaISBN disponibiliza o \emph{script} \textt{importar\_acervo.py}. Esse script disponibiliza algumas opções de linha de comando, descrita a seguir.
 
-#### Etapa 2:
+\begin{itemize}
+    \item  \textbf{-i nome\_arq}: permite especificar o nome do arquivo de entrada (contendo acervo a ser importado), no formato csv ou xlsx.
+    
+    \item \textbf{-v}: modo 'verboso' de execução do script (para fins de depuração e entendimento do seu funcionamento.
+    
+    \item \textbf{-isbn col}: especifica nome da coluna relativa ao ISBN no arquivo de entrada. Essa opção é necessário, posto que diferente bibliotecas possuem diferentes esquemas de armazenamento de seus acervos e portanto diferentes nomes de colunas na tabela correspondente a livros. Por exemplo, no acervo do CEFET/RJ a coluna que armazena o ISBN é denominada \emph{ISBN\_ISSN}, enquanto que no acervo da UFF essa coluna é denominada \emph{ESCALA}.
+    
+    \item \textbf{-fonte cols}: argumento que permite ao usuário especificar os nomes de colunas a importar do acervo bibliotecário.
+    
+    \item  \textbf{-destino cols}: argumento que permite ao usuário especificar os nomes de colunas correspondentes na base unificada
+\end{itemize}
 
-Podemos prosseguir então, para ver o conteudo desses acervos. Para ver quais são as colunas dos arquivos, basta escrever:
->Entrada:<br />
->python ler_acervo.py -f acervo-cefetrj.csv -t<br />
->Saida:<br />
-![Capturar4](https://user-images.githubusercontent.com/39687418/62415611-02d23b00-b603-11e9-8747-fe25565966b4.PNG)<br />
->Entrada:<br />
->python ler_acervo.py -f acervo-uff.xlsx -t<br />
->Saida:<br />
-![Capturar13](https://user-images.githubusercontent.com/39687418/62415624-17aece80-b603-11e9-9bff-f8ec3a8b2309.PNG)
+Exemplos de uso do \emph{script} \textt{importar\_acervo.py} são fornecidos a seguir. O efeito de execução desses dois comandos é a integração dos acervos de livros da UFF e do cEFET/RJ à base unificada do \textt{ColetaISBN}. 
 
-Aqui podemos ver que o arquivo do cefet contem os seguintes campos: TITULO, ASSUNTOS, AUTORES, OBRA, IDIOMA, ANO, DATA_ATUALIZACAO, MATERIAL, CLASSIFICACAO, TIPO_MATERIAL, ISBN_ISSN, AUTOR_PRINCIPAL, EDITORA, EDICAO. Enquanto o arquivo da uff contem 31 campos.
+\begin{python}
+python importar_acervo.py -i acervo-uff.xlsx 
+    -isbn ESCALA 
+    -json -fonte TITULO,DESC_AREA_CONHECIMENTO,
+    AUTOR,ESCALA,PUBLICACAO,EDICAO,PAGINA 
+    -destino titulo,assuntos,autores,isbn13,editora,
+    edicao,qtd_paginas
+\end{python}
 
-#### Etapa 3:
-Pronto. Agora que sabemos quais são as colunas dos arquivos, podemos inspecionar o que tem dentro dessas colunas para determinar se queremos ou não por essas colunas no nosso futuro arquivo json ou xml. Para inspecionar o que tem dentro das colunas, você pode escrever:
->Entrada:<br />
->python ler_acervo.py -f acervo-cefetrj.csv -col ISBN_ISSN -c<br />
->Saida:<br />
-![Capturar6](https://user-images.githubusercontent.com/39687418/62415615-0796ef00-b603-11e9-9307-920edcf6a03b.PNG)
 
-Note que essa etapa é importante, pois só podemos continuar com as próximas etapas após termos determinado qual dessas colunas contem os numeros isbn. Isso pode ser um pouco difícil, pois nem sempre é claro quais dessas colunas contém os numeros ISBN. No dataset da UFF por exemplo, os números ISBN ficam dentro da coluna ESCALA.
->Entrada:<br />
->python ler_acervo.py -f acervo-uff.xlsx -col ESCALA -c<br />
->Saida:<br />
-![Capturar16](https://user-images.githubusercontent.com/39687418/62415731-0070e080-b605-11e9-8aee-b63162b1fc35.PNG)
+\begin{python}
+python importar_acervo.py -i acervo-cefetrj.csv 
+    -isbn ISBN_ISSN 
+    -json -fonte TITULO,ASSUNTOS,AUTORES,IDIOMA,
+    ISBN_ISSN,EDITORA
+    -destino titulo,assuntos,autores,idioma,isbn13,
+    editora
+\end{python}
 
-#### Etapa 4:
-Agora que já sabemos qual coluna contém os números ISBN, precisamos gerar a lista com os números ISBN. Isso é essencial e precisa ser feito para que o restante do código possa funcionar. Essa etapa é necessária porque a chave que iremos usar para criar o arquivo JSON são os números ISBN. Como nem todas as linhas das planilhas do CEFET e da UFF contém um número ISBN, esse comando irá reduzir o arquivo csv ou xlsx para um novo arquivo, que terá todas as linhas sem números ISBN removidas do arquivo principal.
->Entradas:<br />
->python ler_acervo.py -f acervo-cefetrj.csv -col ISBN_ISSN -list<br />
->python ler_acervo.py -f acervo-uff.xlsx -col ESCALA -list<br />
+Uma aspecto importante desta funcionalidades diz respeito à validação e normalização dos dados armazenados na coluna de ISBN existente no arquivo a ser importado. Por exemplo, nos acervos aos quais tivemos acesso, existem entradas sem ISBN, com ISBN inválido, ou com valores como por exemplo "9780765804136 (v.1).", " 8573350563 (obra completa).", " 8572280189 .", entre outros. Em nossa solução, tomamos a decisão de normalizar os valores de ISBN para armazenar na base unificada do ColetaISBN. Em particular, utilizamos a biblioteca Python denominada isbnlib para realizar a normalização desses valores e para converter eventuais códigos de ISBN10 para ISBN13.
 
-A lista com os números isbn ficará guarda na pasta ISBN_lists, enquanto o novo arquivo csv simplificado ficará guardado na pasta New_csvs
+Outro aspecto importante dessa funcionalidade é que ela contempla a integração de esquemas. Por exemplo, no acervo do CEFET/RJ, não há a informação de quantidade de páginas de cada livro, mas no acervo da UFF essa informação existem. Em nossa solução, quando importamos um novo acervo é existe livro na base unificada que podem ter sua informação completada, o script realiza essa tarefa.
 
-#### Etapa 5:
-A próxima etapa consiste em gerar os arquivos xml ou json. O comando que faz isso possibilita que você escolha quais colunas da planilha deseja adicionar ao arquivo json ou xml. Note que o comando -json irá gerar apenas um arquivo json, enquanto que o comando -xml irá gerar ambos.
->Entradas:<br />
->python ler_acervo.py -f acervo-cefetrj.csv -col TITULO -to titulo -json<br />
->python ler_acervo.py -f acervo-cefetrj.csv -col TITULO,ASSUNTOS -to titulo,assuntos -json<br />
->python ler_acervo.py -f acervo-cefetrj.csv -col TITULO,ASSUNTOS,AUTORES,OBRA,IDIOMA -to titulo,assuntos,autores,obra,idioma -xml<br />
->python ler_acervo.py -f acervo-cefetrj.csv -col TITULO,ASSUNTOS,AUTORES,OBRA,IDIOMA,ISBN_ISSN -to titulo,assuntos,autores,obra,idioma,isbn -xml<br />
+#### Detecção de nomes de autores e de editoras semelhantes}
 
-O arquivo json gerado ficará guardado na pasta Jsonfiles com o nome dadosuniversidades.json, equanto o arquivo xml ficará guardado na pasta
-xmlfiles com o nome dadosuniversidades.xml
+A ideia que implementamos nesta funcionalidade foi a seguinte. Muitas vezes, uma mesma obra é cadastrada de formas diferente. Por exemplo, um autor cujo nome José Silva pode ser sido cadastrado como "José Silva", "Silva, José" e "J. Silva". Essa funcionalidade permite detectar duas ou mais entradas na base unificada que provavelmente correspondem à mesma entidade. Essa funcionalidade pode ser aplicada a diversos campos, como por exemplo, nomes autores e nomes de editoras. 
 
-#### Comandos úteis:<br />
-##### Para inspecionar o nome das colunas:<br />
->python ler_acervo.py -f file_name -t<br />
-##### Para inspecionar o conteúdo das colunas:<br />
->python ler_acervo.py -f file_name -col col_name -c<br />
-##### Para gerar a lista com números ISBN:<br />
->python ler_acervo.py -f file_name -col isbn_col -list<br />
-##### Para gerar o arquivo json com as colunas do arquivo csv ou xlsx:<br />
->python ler_acervo.py -f file_name -col col1,col2,col3,...,coln -to col1,col2,col3,...,coln -json<br />
-##### Para gerar o arquivo json e xml com as colunas do arquivo csv ou xlsx:<br />
->python ler_acervo.py -f file_name -col col1,col2,col3,...,coln -to col1,col2,col3,...,coln -xml
+A funcionalidade descrita acima está implementada no script denominada \emph{search\_duplicates.py}. Um exemplo de execução desse script é fornecido a seguir. Neste exemplo, a opção \textbf{-i} permite especificar o nome do arquivo contendo o acervo bibliográfico, enquanto que a opção \textbf{-col} permite especifica o nome da coluna sobre a qual realizar a análise. Esse script produz como resultado de sua execução um arquivo CSV contendo as posições das duplicatas.
 
-### Exemplos na nuvem:
+\begin{python}
+python search_duplicates.py -i file_name 
+    -col autores 
+\end{python}
 
-Para buscar dados de plataformas como googlebooks, crossref e openlibrary, é necessário ter uma lista com números ISBN.
-#### Googlebooks:
->python requisicao_dados.py -f isbns.txt -l gbooks
-#### Openlibrary:
->python requisicao_dados.py -f isbns.txt -l openl
-#### Crossref:
->python requisicao_dados.py -f isbns.txt -l crossref
+Implementamos essa funcionalidade por meio do uso da biblioteca Python denominada dysamby (\url{https://pypi.org/project/disamby/}
+). De acordo com os seus desenvolvedores, 
+disamby é um pacote escrito puramente em Python e projetado para realizar a desambiguação da entidades com base na correspondência de cadeia difusa de caracteres (\emph{fuzzy matching)}.
 
-### Busca por duplicatas:
+Entendemos que essa funcionalidade é útil para eventuais curadorias na base unificada: se duas ou mais entradas fazem referência a uma mesma entidade por meio de nomes distintos, essas entradas poderiam ser modificadas para armazenar um nome canônico para a entidade em questão. Essa funcionalidade também é útil para o contexto específico da Plataforma Sucupira, visto que nela é preciso atrelar os autores a um determinado livro.
 
-O código procura por campos que contenham o mesmo autor. Quando existem erros de digitação no nome, o programa irá definir um grau de similaridade entre eles. Caso seja decidido que existem duplicatas, o código irá retornar uma lista com a posição das mesmas.Exemplo:
+#### Obtenção de entradas a partir de APIs online}
 
->python search_duplicates.py -f acervo-cefetrj.csv -col AUTORES
+A terceira funcionalidade que implementamos no ColetaISBN foi a que possibilita a recuperação de informação dos metadados e dados acerca de um livro a partir de alguma API online (WEb service). Para isso, mais uma vez, utilizamos a biblioteca Python isbnlib. Implementamos essa funcionalidade no script de nome \textt{recupera\_livro.py}. Um exemplo de uso deste script é fornecido abaixo. Nesse script, a opção \textbf{-s} permite ao usuário especificar a API online a ser consultada. 
+
+\begin{python}
+python recupera\_livro.py -s servico
+\end{python}
+
+Um melhoramento que pretendemos realizar no futuro é integrar essa funcionalidade com a de importação de dados. Dessa forma, a base unificada do ColetaISBN poderia evoluir para conter dados recuperados por este script.
+
 
 
 
