@@ -88,6 +88,14 @@ Para buscar dados de plataformas como googlebooks, crossref e openlibrary, é ne
 #### Crossref:
 >python requisicao_dados.py -f isbns.txt -l crossref
 
+### Busca por duplicatas:
+
+O código procura por campos que contenham o mesmo autor. Quando existem erros de digitação no nome, o programa irá definir um grau de similaridade entre eles. Caso seja decidido que existem duplicatas, o código irá retornar uma lista com a posição das mesmas.Exemplo:
+
+>python search_duplicates.py -f acervo-cefetrj.csv -col AUTORES
+
+
+
 
 
 
