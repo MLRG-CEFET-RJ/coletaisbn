@@ -33,20 +33,23 @@ Para executar a funcionalidade de importação de um acervo bibliográfico, o Co
 
 Exemplos de uso do \emph{script} \textt{importar\_acervo.py} são fornecidos a seguir. O efeito de execução desses dois comandos é a integração dos acervos de livros da UFF e do cEFET/RJ à base unificada do \textt{ColetaISBN}. 
 
+```
 python importar_acervo.py -i acervo-uff.xlsx 
     -isbn ESCALA 
     -json -fonte TITULO,DESC_AREA_CONHECIMENTO,
     AUTOR,ESCALA,PUBLICACAO,EDICAO,PAGINA 
     -destino titulo,assuntos,autores,isbn13,editora,
     edicao,qtd_paginas
+```
 
-
+```
 python importar_acervo.py -i acervo-cefetrj.csv 
     -isbn ISBN_ISSN 
     -json -fonte TITULO,ASSUNTOS,AUTORES,IDIOMA,
     ISBN_ISSN,EDITORA
     -destino titulo,assuntos,autores,idioma,isbn13,
     editora
+```
 
 Uma aspecto importante desta funcionalidades diz respeito à validação e normalização dos dados armazenados na coluna de ISBN existente no arquivo a ser importado. Por exemplo, nos acervos aos quais tivemos acesso, existem entradas sem ISBN, com ISBN inválido, ou com valores como por exemplo "9780765804136 (v.1).", " 8573350563 (obra completa).", " 8572280189 .", entre outros. Em nossa solução, tomamos a decisão de normalizar os valores de ISBN para armazenar na base unificada do ColetaISBN. Em particular, utilizamos a biblioteca Python denominada isbnlib para realizar a normalização desses valores e para converter eventuais códigos de ISBN10 para ISBN13.
 
