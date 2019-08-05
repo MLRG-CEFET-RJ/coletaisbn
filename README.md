@@ -2,6 +2,15 @@
 
 Nesse desafio iremos tentar buscar dados isbn como autores,titulo,obra,etc... e formatar tudo em um arquivo json ou xml.
 
+## Pré-requisitos:
+
+>pip install disamby<br />
+>pip install pandas<br />
+>pip install argparse<br />
+>pip install crossrefapi<br />
+>pip install json2xml<br />
+
+
 ## Modo de uso:
 
 A busca pelos dados consiste em duas classes. <br />
