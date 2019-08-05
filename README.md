@@ -58,7 +58,7 @@ Outro aspecto importante dessa funcionalidade é que ela contempla a integraçã
 
 A ideia que implementamos nesta funcionalidade foi a seguinte. Muitas vezes, uma mesma obra é cadastrada de formas diferente. Por exemplo, um autor cujo nome José Silva pode ser sido cadastrado como "José Silva", "Silva, José" e "J. Silva". Essa funcionalidade permite detectar duas ou mais entradas na base unificada que provavelmente correspondem à mesma entidade. Essa funcionalidade pode ser aplicada a diversos campos, como por exemplo, nomes autores e nomes de editoras. 
 
-A funcionalidade descrita acima está implementada no script denominada search_duplicates.py. Um exemplo de execução desse script é fornecido a seguir. Neste exemplo, a opção \textbf{-i} permite especificar o nome do arquivo contendo o acervo bibliográfico, enquanto que a opção \textbf{-col} permite especifica o nome da coluna sobre a qual realizar a análise. Esse script produz como resultado de sua execução um arquivo CSV contendo as posições das duplicatas.
+A funcionalidade descrita acima está implementada no script denominada search_duplicates.py. Um exemplo de execução desse script é fornecido a seguir. Neste exemplo, a opção -i permite especificar o nome do arquivo contendo o acervo bibliográfico, enquanto que a opção -col permite especifica o nome da coluna sobre a qual realizar a análise. Esse script produz como resultado de sua execução um arquivo CSV contendo as posições das duplicatas.
 
 ```
 python search_duplicates.py -i file_name -col autores 
@@ -73,7 +73,7 @@ Entendemos que essa funcionalidade é útil para eventuais curadorias na base un
 A terceira funcionalidade que implementamos no ColetaISBN foi a que possibilita a recuperação de informação dos metadados e dados acerca de um livro a partir de alguma API online (Web service). Para isso, mais uma vez, utilizamos a biblioteca Python isbnlib. Implementamos essa funcionalidade no script de nome recupera_livro.py. Um exemplo de uso deste script é fornecido abaixo. Nesse script, a opção -s permite ao usuário especificar a API online a ser consultada. 
 
 ```
-python recupera\_livro.py -s servico
+python recupera_livro.py -s servico
 ```
 
 Um melhoramento que pretendemos realizar no futuro é integrar essa funcionalidade com a de importação de dados. Dessa forma, a base unificada do ColetaISBN poderia evoluir para conter dados recuperados por este script.
