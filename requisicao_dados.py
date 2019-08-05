@@ -197,7 +197,7 @@ class Isbn:
                 print("erro na chave {}".format(self.isbn))
                 
     
-        elif(self.library=='crosf'):
+        elif(self.library=='crossref'):
             my_dict={}
             works = Works()
             a = works.filter(isbn=str(self.isbn))

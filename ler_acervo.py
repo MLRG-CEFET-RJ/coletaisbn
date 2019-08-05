@@ -177,10 +177,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-path = './Jsonfiles'
-
-if os.path.isfile('{}/dadosuniversidades.json'.format(path)):
-    with open(path+'/dadosuniversidades.json') as json_file:
-        my_dict = json.load(json_file)
 
 
