@@ -63,7 +63,7 @@ A funcionalidade descrita acima está implementada no script denominada search_d
 python search_duplicates.py -i file_name -col autores 
 ```
 
-Implementamos essa funcionalidade por meio do uso da biblioteca Python denominada dysamby (https://pypi.org/project/disamby/). De acordo com os seus desenvolvedores, disamby é um pacote escrito puramente em Python e projetado para realizar a desambiguação da entidades com base na correspondência de cadeia difusa de caracteres (*fuzzy matching*}.
+Implementamos essa funcionalidade por meio do uso da biblioteca Python denominada dysamby (https://pypi.org/project/disamby/). De acordo com os seus desenvolvedores, disamby é um pacote escrito puramente em Python e projetado para realizar a desambiguação da entidades com base na correspondência difusa (*fuzzy matching*} de cadeias de caracteres.
 
 Entendemos que essa funcionalidade é útil para eventuais curadorias na base unificada: se duas ou mais entradas fazem referência a uma mesma entidade por meio de nomes distintos, essas entradas poderiam ser modificadas para armazenar um nome canônico para a entidade em questão. Essa funcionalidade também é útil para o contexto específico da Plataforma Sucupira, visto que nela é preciso atrelar os autores a um determinado livro.
 
