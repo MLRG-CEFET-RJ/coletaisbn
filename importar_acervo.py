@@ -16,7 +16,7 @@ import sys
 import isbnlib as il
 import time
 
-JSON_ACERVO_UNIFICADO = './data/acervo_unificado.json'
+JSON_ACERVO_UNIFICADO = 'data/acervo_unificado.json'
 COLUNAS_ACERVO_UNIFICADO = ['isbn13','titulo','assuntos','autores','idioma','editora','qtd_paginas', 'edicao']
 
 def imprimir_primeiras_linhas(file_name):
@@ -47,13 +47,15 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
 
     tamanho_acervo = len(df_unificado.index)
 
+    df = pd.DataFrame()
     extensao_arquivo = re.search('\.(.*)', input_file).group()
-    if extensao_arquivo =='.csv':
-        df = pd.read_csv(input_file, dtype=str)
-    elif extensao_arquivo =='.xlsx':
-        df = pd.read_excel(input_file, dtype=str)
 
-    df = df[cols_fonte]
+    if extensao_arquivo == '.csv':
+        df = pd.read_csv(input_file, dtype=str)
+        df = df[cols_fonte]
+    elif extensao_arquivo == '.xlsx':
+        df = pd.read_excel(input_file, dtype=str)
+        df = df[cols_fonte]
 
     mapeamento_colunas = dict()
     for j in range (len(cols_fonte)):
@@ -70,7 +72,7 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
 
     if len(cols_fonte) != len(cols_destino):
         print("ERRO: listas de colunas fonte e destino devem ter mesmo tamanho.")
-        return False
+        return
 
     indices_entradas_invalidas = []
     for index, row in df.iterrows():
@@ -123,15 +125,7 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
 
     df_unificado = df.append(df_inserir, ignore_index=True)
 
-    print("inserido:")
-    print(df_unificado.columns)
-    print(df_unificado)
-
     result = df_unificado[['isbn13']].merge(df_atualizar, how="left")
-
-    print("atualizado:")
-    print(df_unificado.columns)
-    print(df_unificado)
 
     df_unificado.to_json(JSON_ACERVO_UNIFICADO)
 
@@ -164,7 +158,7 @@ def main():
 
     args = parser.parse_args()
 
-    input_file = './data/' + args.i
+    input_file = 'data/' + args.i
 
     if args.v:
         # imprime o esquema (nomes das colunas) do arquivo de acervo
