@@ -56,7 +56,7 @@ class Duplicates():
 def main():
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f",  help="Nome do arquivo de entrada")
+    parser.add_argument("-i",  help="Nome do arquivo de entrada")
     parser.add_argument("-col",help="Nome da coluna para busca por duplicatas")
     
     args   = parser.parse_args()
