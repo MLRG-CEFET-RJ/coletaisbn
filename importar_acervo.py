@@ -15,6 +15,7 @@ from json2xml import json2xml
 import sys
 import isbnlib as il
 import time
+import collections
 
 JSON_ACERVO_UNIFICADO = 'data/acervo_unificado.json'
 COLUNAS_ACERVO_UNIFICADO = ['isbn13','titulo','assuntos','autores','idioma','editora','qtd_paginas', 'edicao']
@@ -92,17 +93,20 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
         mapeamento_colunas[cols_fonte[j]] = cols_destino[j]  
     df.rename(columns=mapeamento_colunas, inplace=True)
 
-    # Determina quais entradas são inválidas no arquivo de entrada
-    # (uma entrada inválida corresponde a um valor de ISBN inválido)
+    # Determina quais entradas são válidas e quais são inválidas no arquivo de entrada
+    # (uma entrada é considerada válida se e somente se corresponde a um valor de ISBN válido)
     indices_entradas_invalidas = []
+    indices_entradas_validas = []
     for index, row in df.iterrows():
         isbn = str(row['isbn13'])
         isbn = il.clean(isbn)
         isbn = il.to_isbn13(isbn)
         if isbn == 'nan' or isbn is None:
             indices_entradas_invalidas.append(index)
+        else:
+            indices_entradas_validas.append(index)
 
-    # Filtra arquivo de entrada: agora ele possui apenas entradas válidas.
+    # Filtra arquivo de entrada. Após essa operação, o arquivo possui apenas entradas válidas.
     df.drop(df.index[indices_entradas_invalidas],inplace=True)
 
     #
@@ -111,12 +115,48 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
     #
     isbns_no_acervo_unif = df_unificado['isbn13'].tolist()
 
+    # 'sanity check': o acervo unificado não pode conter entradas duplicadas.
+    if len(set(isbns_no_acervo_unif)) != len(isbns_no_acervo_unif):
+        print("ERRO GRAVE: acervo unificado contém duplicatas!")
+        print(len(set(isbns_no_acervo_unif)) - len(isbns_no_acervo_unif))
+        print([item for item, count in collections.Counter(isbns_no_acervo_unif).items() if count > 1])
+        return
+
+    isbns_no_arquivo_entrada = []
+    temp = df['isbn13'].tolist()
+    for t in temp:
+        isbn = str(t)
+        isbn = il.clean(isbn)
+        isbn = il.to_isbn13(isbn)
+        isbns_no_arquivo_entrada.append(isbn)
+
+    df['isbn13'] = isbns_no_arquivo_entrada
+    df.sort_values('isbn13',inplace=True)
+    df.drop_duplicates(subset="isbn13", inplace=True)
+
+    # 'sanity check': não queremos importar a mesma entrada mais de uma vez.
+    isbns_no_arquivo_entrada = df['isbn13'].tolist()
+    if len(set(isbns_no_arquivo_entrada)) != len(isbns_no_arquivo_entrada):
+        print("ERRO GRAVE: acervo de entrada contém duplicatas!")
+        print(len(indices_entradas_validas) - len(set(isbns_no_arquivo_entrada)))
+        print([item for item, count in collections.Counter(isbns_no_arquivo_entrada).items() if count > 1])
+        return
+
     entradas_ja_existentes = []
     entradas_novas = []
+
+    isbns_no_acervo_entrada = df['isbn13'].tolist()
 
     for index, row in df.iterrows():
         isbn = str(row['isbn13'])
         isbn = il.clean(isbn)
+        
+        if il.is_isbn10(isbn):
+            isbn13 = il.to_isbn13(isbn)
+            if isbn13 in isbns_no_acervo_entrada:
+                print("AVISO: duplicata no arquivo de entrada (cadastro com ISBN10 e ISBN13): %s" % isbn)
+                return
+
         isbn = il.to_isbn13(isbn)
 
         if isbn == 'nan' or isbn is None:
@@ -164,8 +204,8 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
     #    - entradas novas são inseridas (concat)
     #    - entradas já existentes são atualizadas (merge e update)
     #
-    df_inserir.reset_index(inplace=True)
-    df_atualizar.reset_index(inplace=True)
+    df_inserir.reset_index(drop=True, inplace=True)
+    df_atualizar.reset_index(drop=True, inplace=True)
     if args.v:
         print("Entradas atuais: ", len(df_unificado.index))
         print("Novas entradas: ", len(df_inserir.index))
@@ -176,9 +216,11 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
     print("Antes da importação, acervo unificado contém %d entrada(s)." % tamanho_acervo)
 
     df_unificado = pd.concat([df_unificado, df_inserir], axis=0, sort=False)
+    df_unificado.reset_index(drop=True, inplace=True)
 
     result = df_unificado[['isbn13']].merge(df_atualizar, how="left")
     df_unificado.update(result)
+    df_unificado.reset_index(drop=True, inplace=True)
 
     tamanho_acervo = len(df_unificado.index)
 
