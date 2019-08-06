@@ -9,5 +9,12 @@ RUN apt-get update \
 
 RUN git clone https://github.com/MLRG-CEFET-RJ/coletaisbn.git
 
+RUN pip install disamby
+RUN pip install pandas
+RUN pip install argparse
+RUN pip install crossrefapi
+RUN pip install json2xml
+RUN pip install isbnlib
+
 ENTRYPOINT ["/bin/bash"]
 
