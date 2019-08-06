@@ -45,8 +45,6 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
     else:
         df_unificado = pd.DataFrame(columns=COLUNAS_ACERVO_UNIFICADO)
 
-    tamanho_acervo = len(df_unificado.index)
-
     df = pd.DataFrame()
     extensao_arquivo = re.search('\.(.*)', input_file).group()
 
@@ -56,24 +54,46 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
     elif extensao_arquivo == '.xlsx':
         df = pd.read_excel(input_file, dtype=str)
         df = df[cols_fonte]
-
-    mapeamento_colunas = dict()
-    for j in range (len(cols_fonte)):
-        mapeamento_colunas[cols_fonte[j]] = cols_destino[j]  
-
-    df.rename(columns=mapeamento_colunas, inplace=True)
-
-    print("Antes da importação, acervo unificado contém %d entrada(s)." % tamanho_acervo)
-
-    #TODO: verificar se essas colunas existem nos dfs de entrada e unificado.
-    if args.v:
-        print(cols_fonte)
-        print(cols_destino)
+    else:
+        print("ERRO: Arquivo a ser importado deve estar em formato CSV ou XLSX.")
+        return
 
     if len(cols_fonte) != len(cols_destino):
         print("ERRO: listas de colunas fonte e destino devem ter mesmo tamanho.")
         return
+    elif len(cols_fonte) == 0:
+        print("ERRO: listas de colunas fonte e destino devem ter ser não vazias.")
+        return
 
+    # verifica se colunas existem no esquema unificado.
+    for col in cols_destino:
+        if col not in COLUNAS_ACERVO_UNIFICADO:
+            print("ERRO: %s não é uma coluna do esquema do acervo unificado." % col)
+            return
+
+    # verifica se colunas existem no esquema unificado.
+    for col in cols_fonte:
+        if col not in df.columns:
+            print("ERRO: %s não é uma coluna do esquema do acervo de entrada." % col)
+            return
+
+    if args.v:
+        print("Esquema do acervo de entrada: ", cols_fonte)
+        print("Projeção do esquema do acervo unificado: ", cols_destino)
+
+    # 
+    # Cada coluna no acervo de entrada corresponde a uma coluna no acervo unificado.
+    # O trecho a seguir renomeias as colunas do acervo de entrada usando os nomes de
+    # colunas correspondentes no acervo unificado. Essa transformação é útil pois
+    # facilita a atualização do acervo unificado (que é realizada no desta função).
+    #
+    mapeamento_colunas = dict()
+    for j in range (len(cols_fonte)):
+        mapeamento_colunas[cols_fonte[j]] = cols_destino[j]  
+    df.rename(columns=mapeamento_colunas, inplace=True)
+
+    # Determina quais entradas são inválidas no arquivo de entrada
+    # (uma entrada inválida corresponde a um valor de ISBN inválido)
     indices_entradas_invalidas = []
     for index, row in df.iterrows():
         isbn = str(row['isbn13'])
@@ -82,8 +102,13 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
         if isbn == 'nan' or isbn is None:
             indices_entradas_invalidas.append(index)
 
+    # Filtra arquivo de entrada: agora ele possui apenas entradas válidas.
     df.drop(df.index[indices_entradas_invalidas],inplace=True)
 
+    #
+    # Dada uma entrada no arquivo a ser importado, ou essa entrada já existe no arquivo unificado, ou não.
+    # O trecho a seguir identifica isso para cada entrada válida do arquivo a ser importado.
+    #
     isbns_no_acervo_unif = df_unificado['isbn13'].tolist()
 
     entradas_ja_existentes = []
@@ -106,14 +131,25 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
             entradas_ja_existentes.append(index)
         else:
             entradas_novas.append(index)
+            # print('***ERROR***')
+            # print('row:', row)
+            # print('row[isbn13]:', row['isbn13'])
+            # print('isbn:', isbn)
+            # return
 
     entradas_invalidas = 0
     entradas_atualizadas = 0
     entradas_inseridas = 0
 
+    # cria dois novos dataframes, um para entradas novas e outro para entradas já existentes.
     df_inserir = df.loc[entradas_novas]
     df_atualizar = df.loc[entradas_ja_existentes]
 
+    #
+    # No acervo unificado, cada entrada é identificada pelo ISBN13. Portanto o trecho a seguir faz o mapeamento
+    # dos valores de isbn provenientes do arquivo de entrada (que podem estar no formato ISBN10 ou ISBN13) para
+    # ISBN13.
+    #
     isbns_novos = df_inserir['isbn13'].tolist();
     isbns_existentes = df_atualizar['isbn13'].tolist();
 
@@ -123,10 +159,32 @@ def importar_acervo_bibliotecario(args, input_file, col_isbn, cols_fonte, cols_d
     isbns_canonicos_existentes = [il.to_isbn13(i) for i in isbns_existentes]
     df_atualizar['isbn13'] = isbns_canonicos_existentes
 
-    df_unificado = df.append(df_inserir, ignore_index=True)
+    #
+    # realiza as alterações pertinentes sobre o acervo unificado: 
+    #    - entradas novas são inseridas (concat)
+    #    - entradas já existentes são atualizadas (merge e update)
+    #
+    df_inserir.reset_index(inplace=True)
+    df_atualizar.reset_index(inplace=True)
+    if args.v:
+        print("Entradas atuais: ", len(df_unificado.index))
+        print("Novas entradas: ", len(df_inserir.index))
+        print("Entradas a atualizar: ", len(df_atualizar.index))
+
+    tamanho_acervo = len(df_unificado.index)
+
+    print("Antes da importação, acervo unificado contém %d entrada(s)." % tamanho_acervo)
+
+    df_unificado = pd.concat([df_unificado, df_inserir], axis=0, sort=False)
 
     result = df_unificado[['isbn13']].merge(df_atualizar, how="left")
+    df_unificado.update(result)
 
+    tamanho_acervo = len(df_unificado.index)
+
+    print("Após a importação, acervo unificado contém %d entrada(s)." % tamanho_acervo)
+
+    # df_unificado.set_index('isbn13',inplace=True)
     df_unificado.to_json(JSON_ACERVO_UNIFICADO)
 
 
