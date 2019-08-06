@@ -1,6 +1,6 @@
 # ColetaISBN
 
-O ColetaISBN é um conjunto de scrips em Python que permite importar dados bibliográficos a partir de alguns Web services disponíveis publicamente, assim como permite importar acervos bibliográficos provenientes de bibliotecas públicas ou particulares. Em conjunto, essas duas funcionalidades permitem construir uma base unificada de livros. Além disso, o ColetaISBN também fornece uma funcionalidade para desambiguação de nomes de entidades. Um breve vídeo (2min) com uma demonstração de uso das funcionalidades fornecidas pelo ColetaISBN pode ser acessado [aqui](https://www.dropbox.com/s/asmkw49h3j3rmc9/ColetaISBN.mov?dl=0). 
+O ColetaISBN é um conjunto de scripts em Python que permite importar dados bibliográficos a partir de alguns Web services disponíveis publicamente, assim como permite importar acervos bibliográficos provenientes de bibliotecas públicas ou particulares. Em conjunto, essas duas funcionalidades permitem construir uma base unificada de livros. Além disso, o ColetaISBN também fornece uma funcionalidade para desambiguação de nomes de entidades. Um breve vídeo (2min) com uma demonstração de uso das funcionalidades fornecidas pelo ColetaISBN pode ser acessado [aqui](https://www.dropbox.com/s/asmkw49h3j3rmc9/ColetaISBN.mov?dl=0). 
 
 ## Dependências
 
@@ -63,7 +63,7 @@ A funcionalidade descrita acima está implementada no script denominada search_d
 python search_duplicates.py -i file_name -col autores 
 ```
 
-Implementamos essa funcionalidade por meio do uso da biblioteca Python denominada dysamby (https://pypi.org/project/disamby/). De acordo com os seus desenvolvedores, disamby é um pacote escrito puramente em Python e projetado para realizar a desambiguação da entidades com base na correspondência de cadeia difusa de caracteres (*fuzzy matching*}.
+Implementamos essa funcionalidade por meio do uso da biblioteca Python denominada dysamby (https://pypi.org/project/disamby/). De acordo com os seus desenvolvedores, disamby é um pacote escrito puramente em Python e projetado para realizar a desambiguação da entidades com base na correspondência difusa (*fuzzy matching*} de cadeias de caracteres.
 
 Entendemos que essa funcionalidade é útil para eventuais curadorias na base unificada: se duas ou mais entradas fazem referência a uma mesma entidade por meio de nomes distintos, essas entradas poderiam ser modificadas para armazenar um nome canônico para a entidade em questão. Essa funcionalidade também é útil para o contexto específico da Plataforma Sucupira, visto que nela é preciso atrelar os autores a um determinado livro.
 
