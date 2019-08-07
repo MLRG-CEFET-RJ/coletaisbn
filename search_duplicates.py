@@ -16,7 +16,7 @@ class Duplicates():
         self.nome_arquivo = nome_arquivo
         self.nome_coluna  = nome_coluna
         
-    def search_duplicates(self):
+    def find_duplicates(self):
         
         self.load_dataset()
         
@@ -56,13 +56,13 @@ class Duplicates():
 def main():
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i",  help="Nome do arquivo de entrada")
-    parser.add_argument("-col",help="Nome da coluna para busca por duplicatas")
+    parser.add_argument("-i",  help="Nome do arquivo de entrada", required=True)
+    parser.add_argument("-col",help="Nome da coluna para busca por duplicatas", required=True)
     
     args   = parser.parse_args()
     
     duplicates = Duplicates(args.f,args.col)
-    duplicates.search_duplicates()
+    duplicates.find_duplicates()
     
 if __name__ == "__main__":
     main()
