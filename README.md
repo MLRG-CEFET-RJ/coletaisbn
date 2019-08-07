@@ -69,14 +69,14 @@ Entendemos que essa funcionalidade é útil para eventuais curadorias na base un
 
 ### Obtenção de entradas a partir de APIs online
 
-A terceira funcionalidade que implementamos no ColetaISBN foi a que possibilita a recuperação de informação dos metadados e dados acerca de um livro a partir de alguma API online (Web service). Para isso, mais uma vez, utilizamos a biblioteca Python isbnlib. Implementamos essa funcionalidade no script de nome recupera_livro.py. Nesse script, a opção -s permite ao usuário especificar a API online a ser consultada. As opções -isbn e -isbns são exclusivas entre si. A primeira permite fornecer um único ISBN para realizar a recuperação (busca). Já a segunda permite fornecer uma lista de ISBNs em um arquivo txt (um ISBN por linha). Um exemplo de uso deste script é fornecido abaixo. 
+A terceira funcionalidade que implementamos no ColetaISBN foi a que possibilita a recuperação de informação dos metadados e dados acerca de um livro a partir de alguma API online (Web service). Para isso, mais uma vez, utilizamos a biblioteca Python isbnlib. Também fazemos uso da biblioteca crossrefapi. Implementamos essa funcionalidade no script de nome recupera_livro.py. Nesse script, a opção -s permite ao usuário especificar a API online (serviço) a ser consultada. Atualmente, é possível fazer acesso a três serviços: Google Books API, Open Libray API e Cross Ref API. As opções -isbn e -isbns são exclusivas entre si. A primeira permite fornecer um único ISBN para realizar a recuperação (busca). Já a segunda permite fornecer uma lista de ISBNs em um arquivo txt (um ISBN por linha). Um exemplo de uso deste script é fornecido abaixo. 
 
 ```
 python recupera_livro.py -isbn 9780446310789 -s openl
 ```
 
 ```
-python recupera_livro.py -isbns isbns.txt -s openl
+python recupera_livro.py -isbns isbns.txt -s gbooks
 ```
 
 Um melhoramento que pretendemos realizar no futuro é integrar essa funcionalidade com a de importação de dados. Dessa forma, a base unificada do ColetaISBN poderia evoluir para conter dados recuperados por este script.
