@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Aug  4 14:17:50 2019
+Created on Jul  4 14:17:50 2019
 
-@author: Daniel
+@author: Daniel Favoreto & Eduardo Bezerra
 """
 
 import pandas as pd
@@ -11,7 +11,9 @@ from disamby import Disamby
 import argparse
 import re
 
-class Duplicates():
+JSON_ACERVO_UNIFICADO = "./data/acervo_unificado.json"
+
+class Desambiguador():
     def __init__(self, nome_arquivo, nome_coluna):
         self.nome_arquivo = nome_arquivo
         self.nome_coluna  = nome_coluna
@@ -44,24 +46,32 @@ class Duplicates():
         positions_df.to_csv('duplicates_list.csv', index = False)
     
     def load_dataset(self):
-        path = 'new_csvs/'
-        extensao_arquivo = re.search('\.(.*)', self.nome_arquivo).group()
-        if(extensao_arquivo == ".csv"):
-            self.df = pd.read_csv(path+self.nome_arquivo)
-            self.df_coluna = self.df[self.nome_coluna].astype(str)
+        if self.nome_arquivo is None:
+            self.nome_arquivo = JSON_ACERVO_UNIFICADO
+            self.df = pd.read_json(self.nome_arquivo, dtype=str)
         else:
-            self.df = pd.read_excel(path+self.nome_arquivo)
+            extensao_arquivo = re.search('\.(.*)', self.nome_arquivo).group()
+            if(extensao_arquivo == ".csv"):
+                self.df = pd.read_csv(self.nome_arquivo)
+            else:
+                self.df = pd.read_excel(self.nome_arquivo)
+
+        if self.nome_coluna in self.df.columns:
             self.df_coluna = self.df[self.nome_coluna].astype(str)
+        else: 
+            print("ERRO: coluna não encontrada: %s.\n" % df.nome_coluna)
+            sys.exit(1)
         
 def main():
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i",  help="Nome do arquivo de entrada", required=True)
+    parser.add_argument("-i",  help="Nome do arquivo (acervo) de entrada. "
+        "Se não for especificado, considera o acervo unificado.")
     parser.add_argument("-col",help="Nome da coluna para busca por duplicatas", required=True)
     
     args   = parser.parse_args()
-    
-    duplicates = Duplicates(args.f,args.col)
+
+    duplicates = Desambiguador(args.i,args.col)
     duplicates.find_duplicates()
     
 if __name__ == "__main__":
