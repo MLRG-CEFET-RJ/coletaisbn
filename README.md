@@ -57,10 +57,18 @@ Outro aspecto importante dessa funcionalidade é que ela contempla a integraçã
 
 A ideia que implementamos nesta funcionalidade foi a seguinte. Muitas vezes, uma mesma obra é cadastrada de formas diferente. Por exemplo, um autor cujo nome José Silva pode ser sido cadastrado como "José Silva", "Silva, José" e "J. Silva". Essa funcionalidade permite detectar duas ou mais entradas na base unificada que provavelmente correspondem à mesma entidade. Essa funcionalidade pode ser aplicada a diversos campos, como por exemplo, nomes autores e nomes de editoras. 
 
-A funcionalidade descrita acima está implementada no script denominada search_duplicates.py. Um exemplo de execução desse script é fornecido a seguir. Neste exemplo, a opção -i permite especificar o nome do arquivo contendo o acervo bibliográfico, enquanto que a opção -col permite especifica o nome da coluna sobre a qual realizar a análise. Esse script produz como resultado de sua execução um arquivo CSV contendo as posições das duplicatas.
+A funcionalidade descrita acima está implementada no script denominada search_duplicates.py. A sintaxe para execução desse script é fornecida a seguir. 
 
 ```
 python search_duplicates.py -i file_name -col autores 
+```
+
+Na expressão acima, a opção -i permite especificar o nome do arquivo contendo o acervo bibliográfico. Se essa opção não for fornecida, o script considera que a análise deve ser realizada sobre alguma coluna do acervo unificado do ColetaISBN (i.e., sobre o arquivo ./data/acervo_unificado.json). A opção -col permite especificar o nome da coluna sobre a qual realizar a análise i.e., a desambiguação). Esse script produz como resultado de sua execução um arquivo CSV contendo os agrupamentos de posições das duplicatas encontradas.
+
+Um exemplo de execução deste script é apresentado abaixo. Aviso: essa execução é relativamente demorada.
+
+```
+python search_duplicates.py -i data/acervo-cefetrj.csv -col AUTORES
 ```
 
 Implementamos essa funcionalidade por meio do uso da biblioteca Python denominada dysamby (https://pypi.org/project/disamby/). De acordo com os seus desenvolvedores, disamby é um pacote escrito puramente em Python e projetado para realizar a desambiguação da entidades com base na correspondência difusa (*fuzzy matching*} de cadeias de caracteres.
