@@ -34,6 +34,8 @@ def consulta(lista_isbns, servico):
                 isbn_dict[str(isbn)] = formatador_json(data)
             except isbnlib.dev.DataNotFoundAtServiceError:
                 print("Entrada com ISBN %s não foi encontrada no serviço %s." % (isbn, servico))    
+            except isbnlib.dev._exceptions.NoDataForSelectorError:
+                print("Entrada com ISBN %s não foi encontrada no serviço %s." % (isbn, servico))    
     elif servico == 'openl':
         for isbn in lista_isbns:
             try:
