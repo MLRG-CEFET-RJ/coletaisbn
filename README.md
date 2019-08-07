@@ -23,9 +23,9 @@ Esses acervos estão em dois arquivos, disponíveis na pasta *data*. Seus nomes 
 
 Para executar a funcionalidade de importação de um acervo bibliográfico, o ColetaISBN disponibiliza o *script* *importar_acervo.py*. Esse script disponibiliza algumas opções de linha de comando, descrita a seguir.
 
-    - -i nome_arq: permite especificar o nome do arquivo de entrada (contendo acervo a ser importado), no formato csv ou xlsx.
-    - -v: modo 'verboso' de execução do script (para fins de depuração e entendimento do seu funcionamento.
-    - -isbn col: especifica nome da coluna relativa ao ISBN no arquivo de entrada. Essa opção é necessário, posto que diferente bibliotecas possuem diferentes esquemas de armazenamento de seus acervos e portanto diferentes nomes de colunas na tabela correspondente a livros. Por exemplo, no acervo do CEFET/RJ a coluna que armazena o ISBN é denominada ISBN_ISSN, enquanto que no acervo da UFF essa coluna é denominada ESCALA.
+  - -i nome_arq: permite especificar o nome do arquivo de entrada (contendo acervo a ser importado), no formato csv ou xlsx.
+  - -v: modo 'verboso' de execução do script (para fins de depuração e entendimento do seu funcionamento.
+  - -isbn col: especifica nome da coluna relativa ao ISBN no arquivo de entrada. Essa opção é necessário, posto que diferente bibliotecas possuem diferentes esquemas de armazenamento de seus acervos e portanto diferentes nomes de colunas na tabela correspondente a livros. Por exemplo, no acervo do CEFET/RJ a coluna que armazena o ISBN é denominada ISBN_ISSN, enquanto que no acervo da UFF essa coluna é denominada ESCALA.
   - -fonte cols: argumento que permite ao usuário especificar os nomes de colunas a importar do acervo bibliotecário.
   - -destino cols: argumento que permite ao usuário especificar os nomes de colunas correspondentes na base unificada
 
@@ -63,9 +63,9 @@ A funcionalidade descrita acima está implementada no script denominada search_d
 python search_duplicates.py -i file_name -col autores 
 ```
 
-Na expressão acima, a opção -i permite especificar o nome do arquivo contendo o acervo bibliográfico. Se essa opção não for fornecida, o script considera que a análise deve ser realizada sobre alguma coluna do acervo unificado do ColetaISBN (i.e., sobre o arquivo ./data/acervo_unificado.json). A opção -col permite especificar o nome da coluna sobre a qual realizar a análise i.e., a desambiguação). Esse script produz como resultado de sua execução um arquivo CSV contendo os agrupamentos de posições das duplicatas encontradas.
+Na expressão acima, a opção -i permite especificar o nome do arquivo contendo o acervo bibliográfico. Se essa opção não for fornecida, o script considera que a análise deve ser realizada sobre alguma coluna do acervo unificado do ColetaISBN (i.e., sobre o arquivo ./data/acervo_unificado.json). A opção -col permite especificar o nome da coluna sobre a qual realizar a análise i.e., a desambiguação). Esse script produz como resultado de sua execução um arquivo CSV contendo os agrupamentos de posições das duplicatas encontradas. Aviso: a execução desse script é relativamente demorada, por conta da análise complexa que é realizada.
 
-Um exemplo de execução deste script é apresentado abaixo. Aviso: essa execução é relativamente demorada.
+Dois exemplos de execução deste script são apresentados abaixo. No primeiro, a análise é realizada sobre a coluna AUTORES do acervo de livros do CEFET/RJ. No segundo exemplo, a mesma análise é realizada sobre o acervo unificado do ColetaISBN.
 
 ```
 python search_duplicates.py -i data/acervo-cefetrj.csv -col AUTORES
