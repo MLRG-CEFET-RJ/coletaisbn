@@ -1,6 +1,6 @@
 # ColetaISBN
 
-O ColetaISBN é um conjunto de scripts em Python que permite importar dados bibliográficos a partir de alguns Web services disponíveis publicamente, assim como permite importar acervos bibliográficos provenientes de bibliotecas públicas ou particulares. Em conjunto, essas duas funcionalidades permitem construir uma base unificada de livros. Além disso, o ColetaISBN também fornece uma funcionalidade para desambiguação de nomes de entidades. Um breve vídeo (2min) com uma demonstração de uso das funcionalidades fornecidas pelo ColetaISBN pode ser acessado [aqui](https://www.dropbox.com/s/asmkw49h3j3rmc9/ColetaISBN.mov?dl=0). 
+O ColetaISBN é um conjunto de scripts em Python que permite importar dados bibliográficos a partir de alguns Web services disponíveis publicamente, assim como permite importar acervos bibliográficos provenientes de bibliotecas públicas ou particulares. Em conjunto, essas duas funcionalidades permitem construir uma base unificada de informações (metadados) sobre livros. O ColetaISBN também fornece uma funcionalidade para desambiguação de nomes de entidades. Um breve vídeo (2min) com uma demonstração de uso das funcionalidades fornecidas pelo ColetaISBN pode ser acessado [aqui](https://www.dropbox.com/s/asmkw49h3j3rmc9/ColetaISBN.mov?dl=0). 
 
 ## Dependências
 
