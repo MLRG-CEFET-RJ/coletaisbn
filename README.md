@@ -1,6 +1,6 @@
 # ColetaISBN
 
-O ColetaISBN é um conjunto de scripts em Python que permite importar dados bibliográficos a partir de alguns Web services disponíveis publicamente, assim como permite importar acervos bibliográficos provenientes de bibliotecas públicas ou particulares. Em conjunto, essas duas funcionalidades permitem construir uma base unificada de informações (metadados) sobre livros. O ColetaISBN também fornece uma funcionalidade para desambiguação de nomes de entidades. Um breve vídeo (2min) com uma demonstração de uso das funcionalidades fornecidas pelo ColetaISBN pode ser acessado [aqui](https://www.dropbox.com/s/asmkw49h3j3rmc9/ColetaISBN.mov?dl=0). 
+O ColetaISBN é um conjunto de scripts em Python que permite importar dados bibliográficos a partir de alguns Web services disponíveis publicamente, assim como permite importar acervos bibliográficos provenientes de bibliotecas públicas ou particulares. Em conjunto, essas duas funcionalidades permitem construir uma base unificada de informações (metadados) sobre livros. O ColetaISBN também fornece uma funcionalidade para desambiguação de nomes de entidades. Um breve vídeo (2min) com uma demonstração de uso das funcionalidades fornecidas pelo ColetaISBN pode ser acessado [aqui](https://www.dropbox.com/s/p9b61l7lomtr47b/ColetaISBN.mov?dl=0). 
 
 ## Dependências
 
@@ -13,7 +13,7 @@ O ColetaISBN é um conjunto de scripts em Python que permite importar dados bibl
 
 ## Funcionalidades
 
-### Importação de Acervos Bibliotecários
+### Importação de acervos bibliotecários
 
 Essa funcionalidade permite que o acervo bibliográfico de uma biblioteca seja adicionado (i.e., importado) ao repositório unificado do ColetaISBN. Nossa ideia nessa funcionalidade foi permitir que o ColetaISBN pudesse aproveitar os acervos bibliográficos já existentes em diferentes instituições de ensino e pesquisa de nosso país para alimentar gradativamente o a base unificada de livros do sistema. Dessa forma, se alguma biblioteca (pública ou particular) disponibiliza total ou parcialmente seu acervo de livros, é possível por meio desta funcionalidade, importar este acervo para a base unificada do ColetaISBN.
 
@@ -57,10 +57,18 @@ Outro aspecto importante dessa funcionalidade é que ela contempla a integraçã
 
 A ideia que implementamos nesta funcionalidade foi a seguinte. Muitas vezes, uma mesma obra é cadastrada de formas diferente. Por exemplo, um autor cujo nome José Silva pode ser sido cadastrado como "José Silva", "Silva, José" e "J. Silva". Essa funcionalidade permite detectar duas ou mais entradas na base unificada que provavelmente correspondem à mesma entidade. Essa funcionalidade pode ser aplicada a diversos campos, como por exemplo, nomes autores e nomes de editoras. 
 
-A funcionalidade descrita acima está implementada no script denominada search_duplicates.py. Um exemplo de execução desse script é fornecido a seguir. Neste exemplo, a opção -i permite especificar o nome do arquivo contendo o acervo bibliográfico, enquanto que a opção -col permite especifica o nome da coluna sobre a qual realizar a análise. Esse script produz como resultado de sua execução um arquivo CSV contendo as posições das duplicatas.
+A funcionalidade descrita acima está implementada no script denominada search_duplicates.py. A sintaxe para execução desse script é fornecida a seguir. 
 
 ```
 python search_duplicates.py -i file_name -col autores 
+```
+
+Na expressão acima, a opção -i permite especificar o nome do arquivo contendo o acervo bibliográfico. Se essa opção não for fornecida, o script considera que a análise deve ser realizada sobre alguma coluna do acervo unificado do ColetaISBN (i.e., sobre o arquivo ./data/acervo_unificado.json). A opção -col permite especificar o nome da coluna sobre a qual realizar a análise i.e., a desambiguação). Esse script produz como resultado de sua execução um arquivo CSV contendo os agrupamentos de posições das duplicatas encontradas.
+
+Um exemplo de execução deste script é apresentado abaixo. Aviso: essa execução é relativamente demorada.
+
+```
+python search_duplicates.py -i data/acervo-cefetrj.csv -col AUTORES
 ```
 
 Implementamos essa funcionalidade por meio do uso da biblioteca Python denominada dysamby (https://pypi.org/project/disamby/). De acordo com os seus desenvolvedores, disamby é um pacote escrito puramente em Python e projetado para realizar a desambiguação da entidades com base na correspondência difusa (*fuzzy matching*} de cadeias de caracteres.
