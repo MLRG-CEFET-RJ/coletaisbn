@@ -50,13 +50,14 @@ def consulta(lista_isbns, servico):
             a = isbn
             a = a.strip()
             works = Works()
-            a = works.filter(isbn = str(a))
+            l = works.filter(isbn = str(a))
             b = []
-            for item in a:
+            for item in l:
                 b.append((item))
-            isbn_dict[str(a)] = b
-    else:
-        print("ERRO: Serviço de consulta desconhecido.")
+            if(len(b)!=0):
+                isbn_dict[str(a)] = b
+            else:
+                print("Entrada com ISBN %s não foi encontrada no serviço %s."% (isbn, servico))
 
     if isbn_dict:
         with open('./' + servico + '.json', 'w') as outfile:
@@ -86,4 +87,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
