@@ -51,7 +51,7 @@ python importar_acervo.py -i acervo-cefetrj.csv
 
 Uma aspecto importante desta funcionalidades diz respeito à validação e normalização dos dados armazenados na coluna de ISBN existente no arquivo a ser importado. Por exemplo, nos acervos aos quais tivemos acesso, existem entradas sem ISBN, com ISBN inválido, ou com valores como por exemplo "9780765804136 (v.1).", " 8573350563 (obra completa).", " 8572280189 .", entre outros. Em nossa solução, tomamos a decisão de normalizar os valores de ISBN para armazenar na base unificada do ColetaISBN. Em particular, utilizamos a biblioteca Python denominada isbnlib para realizar a normalização desses valores e para converter eventuais códigos de ISBN10 para ISBN13.
 
-Outro aspecto importante dessa funcionalidade é que ela contempla a integração de esquemas. Por exemplo, no acervo do CEFET/RJ, não há a informação de quantidade de páginas de cada livro, mas no acervo da UFF essa informação existem. Em nossa solução, quando importamos um novo acervo é existe livro na base unificada que podem ter sua informação completada, o script realiza essa tarefa.
+Outro aspecto importante dessa funcionalidade é que ela contempla a integração de esquemas. Por exemplo, no acervo do CEFET/RJ, não há a informação de quantidade de páginas de cada livro, mas no acervo da UFF essa informação existem. Em nossa solução, quando importamos um novo acervo e existe algum livro na base unificada que pode ter sua informação completada por informação provenientes desse novo acervo, o script realiza essa tarefa.
 
 ### Detecção de nomes de autores e de editoras semelhantes
 
