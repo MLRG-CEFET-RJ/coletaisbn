@@ -10,6 +10,7 @@ import disamby.preprocessors as pre
 from disamby import Disamby
 import argparse
 import re
+import sys
 
 JSON_ACERVO_UNIFICADO = "./data/acervo_unificado.json"
 
@@ -18,7 +19,7 @@ class Desambiguador():
         self.nome_arquivo = nome_arquivo
         self.nome_coluna  = nome_coluna
         
-    def find_duplicates(self):
+    def analisar(self):
         
         self.load_dataset()
         
@@ -59,20 +60,20 @@ class Desambiguador():
         if self.nome_coluna in self.df.columns:
             self.df_coluna = self.df[self.nome_coluna].astype(str)
         else: 
-            print("ERRO: coluna não encontrada: %s.\n" % df.nome_coluna)
+            print("ERRO: coluna não encontrada: %s.\n" % self.nome_coluna)
             sys.exit(1)
         
 def main():
     
     parser = argparse.ArgumentParser()
     parser.add_argument("-i",  help="Nome do arquivo (acervo) de entrada. "
-        "Se não for especificado, considera o acervo unificado.")
-    parser.add_argument("-col",help="Nome da coluna para busca por duplicatas", required=True)
+        "Opcional. Se não for especificado, considera que a análise deve ser realizada no acervo unificado.")
+    parser.add_argument("-col",help="Nome da coluna sobre a qual realizar a análise.", required=True)
     
     args   = parser.parse_args()
 
     duplicates = Desambiguador(args.i,args.col)
-    duplicates.find_duplicates()
+    duplicates.analisar()
     
 if __name__ == "__main__":
     main()

@@ -54,7 +54,10 @@ def consulta(lista_isbns, servico):
             b = []
             for item in a:
                 b.append((item))
-            isbn_dict[str(a)] = b
+            if len(b) != 0:
+                isbn_dict[str(isbn)] = b
+            else:
+                print("Entrada com ISBN %s não foi encontrada no serviço %s." % (isbn, servico))
     else:
         print("ERRO: Serviço de consulta desconhecido.")
 
