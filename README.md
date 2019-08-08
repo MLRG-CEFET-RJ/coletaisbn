@@ -24,7 +24,7 @@ Esses acervos estão em dois arquivos, disponíveis na pasta *data*. Seus nomes 
 Para executar a funcionalidade de importação de um acervo bibliográfico, o ColetaISBN disponibiliza o *script* *importar_acervo.py*. Esse script disponibiliza algumas opções de linha de comando, descrita a seguir.
 
   - -i nome_arq: permite especificar o nome do arquivo de entrada (contendo acervo a ser importado), no formato csv ou xlsx.
-  - -v: modo 'verboso' de execução do script (para fins de depuração e entendimento do seu funcionamento.
+  - -v: modo 'verboso' de execução do script (para fins de depuração e entendimento do seu funcionamento).
   - -isbn col: especifica nome da coluna relativa ao ISBN no arquivo de entrada. Essa opção é necessário, posto que diferente bibliotecas possuem diferentes esquemas de armazenamento de seus acervos e portanto diferentes nomes de colunas na tabela correspondente a livros. Por exemplo, no acervo do CEFET/RJ a coluna que armazena o ISBN é denominada ISBN_ISSN, enquanto que no acervo da UFF essa coluna é denominada ESCALA.
   - -fonte cols: argumento que permite ao usuário especificar os nomes de colunas a importar do acervo bibliotecário.
   - -destino cols: argumento que permite ao usuário especificar os nomes de colunas correspondentes na base unificada
