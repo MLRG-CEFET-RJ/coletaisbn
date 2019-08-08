@@ -1,0 +1,18 @@
+####
+#### Importação de acervos bibliotecários
+####
+python importar_acervo.py -i acervo-uff.xlsx -isbn ESCALA -json -fonte TITULO,DESC_AREA_CONHECIMENTO,AUTOR,ESCALA,PUBLICACAO,EDICAO,PAGINA -destino titulo,assuntos,autores,isbn13,editora,edicao,qtd_paginas
+
+python importar_acervo.py -i acervo-cefetrj.csv -isbn ISBN_ISSN -json -fonte TITULO,ASSUNTOS,AUTORES,IDIOMA,ISBN_ISSN,EDITORA -destino titulo,assuntos,autores,idioma,isbn13,editora
+
+####
+#### Detecção de nomes de autores e de editoras semelhantes
+####
+python search_duplicates.py -i data/acervo-teste.csv -col AUTORES
+cat duplicates_list.csv 
+
+####
+#### Obtenção de entradas a partir de APIs online
+####
+python recupera_livro.py -isbn 9780446310789 -s openl
+python recupera_livro.py -isbns isbns.txt -s gbooks
